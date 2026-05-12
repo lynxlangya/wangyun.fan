@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>王云帆 · Langya</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..500,30..70;1,9..144,300..500,30..70&family=Inter+Tight:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #fbfdf8;        /* near-white w/ a whisper of sage */
+    --bg2: #f3f6ee;
+    --bone: #1f2620;      /* deep ink, faint green undertone */
+    --bone2: #5a6157;     /* mid */
+    --mute: #98a092;
+    --line: #e2e7da;
+    --gold: #5a8a6a;      /* muted sage — the accent */
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--bone);
+    font-family: "Inter Tight", system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.005em;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  .serif {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 350;
+    letter-spacing: -0.025em;
+    font-variation-settings: "opsz" 144, "SOFT" 40;
+  }
+  .mono {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--mute);
+  }
+  em.acc {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .page {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 48px 64px 80px;
+  }
+
+  /* ── NAV ──────────────────────────────────────────── */
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 120px;
+  }
+  .mark {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .nav .links {
+    display: flex;
+    gap: 28px;
+  }
+  .available {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--gold);
+  }
+  .available .pulse {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 0 0 rgba(77, 122, 90, 0.55);
+    animation: pulse 2.6s infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(77, 122, 90, 0.45); }
+    70%  { box-shadow: 0 0 0 8px rgba(77, 122, 90, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(77, 122, 90, 0); }
+  }
+
+  /* ── HERO ──────────────────────────────────────────── */
+  .hero h1 {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 300;
+    font-size: 124px;
+    line-height: 0.96;
+    letter-spacing: -0.045em;
+    margin: 0;
+    color: var(--bone);
+    font-variation-settings: "opsz" 144, "SOFT" 50;
+  }
+  .hero h1 .investor,
+  .hero h1 .founder { display: block; }
+  .hero h1 .engineer {
+    display: block;
+    color: var(--gold);
+    font-style: italic;
+  }
+  .hero .name {
+    margin-bottom: 28px;
+    color: var(--bone2);
+  }
+  .hero .lede {
+    margin-top: 64px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    max-width: 880px;
+  }
+  .hero .lede .en {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 26px;
+    line-height: 1.35;
+    color: var(--bone);
+    text-wrap: pretty;
+    letter-spacing: -0.02em;
+  }
+  .hero .lede .cn {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--bone2);
+    text-wrap: pretty;
+  }
+
+  /* ── SECTION ───────────────────────────────────────── */
+  section {
+    padding: 140px 0 0;
+  }
+  .section-head {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 32px;
+    align-items: baseline;
+    margin-bottom: 56px;
+  }
+  .section-head .tag {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .section-head .tag .gold { color: var(--gold); }
+  .section-head .tag .rule {
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+  .section-head h2 {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 350;
+    font-size: 52px;
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    margin: 0;
+    color: var(--bone);
+    font-variation-settings: "opsz" 144, "SOFT" 30;
+  }
+  .section-head h2 em { font-style: italic; color: var(--gold); }
+
+  /* ── ROLES ─────────────────────────────────────────── */
+  .body-grid {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 32px;
+  }
+  .role {
+    display: grid;
+    grid-template-columns: 32px 1fr 110px;
+    gap: 28px;
+    padding: 32px 0;
+    border-top: 1px solid var(--line);
+    align-items: baseline;
+  }
+  .role:last-child { border-bottom: 1px solid var(--line); }
+  .role .n {
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-size: 26px;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .role .name {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 30px;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--bone);
+  }
+  .role .cn {
+    font-size: 12px;
+    color: var(--mute);
+    margin-top: 4px;
+    letter-spacing: 0.04em;
+  }
+  .role .q {
+    margin-top: 14px;
+    font-size: 15px;
+    color: var(--bone2);
+    line-height: 1.65;
+    max-width: 540px;
+    text-wrap: pretty;
+  }
+  .role .q em {
+    font-style: italic;
+    color: var(--bone);
+  }
+  .role .lbl { text-align: right; }
+
+  /* ── FOCUS ────────────────────────────────────────── */
+  .focus {
+    display: grid;
+    grid-template-columns: 1fr 110px;
+    gap: 28px;
+    padding: 24px 0;
+    border-top: 1px solid var(--line);
+    align-items: baseline;
+  }
+  .focus:last-child { border-bottom: 1px solid var(--line); }
+  .focus .t {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 24px;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: var(--bone);
+  }
+  .focus .d {
+    font-size: 14.5px;
+    color: var(--bone2);
+    margin-top: 8px;
+    max-width: 600px;
+    line-height: 1.6;
+  }
+  .focus .lbl { text-align: right; color: var(--gold); }
+
+  /* ── PRINCIPLES ───────────────────────────────────── */
+  .principles-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px 56px;
+  }
+  .principle .t {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 22px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--bone);
+  }
+  .principle .d {
+    font-size: 14.5px;
+    color: var(--bone2);
+    line-height: 1.65;
+    margin-top: 10px;
+    text-wrap: pretty;
+  }
+  .principle .cn {
+    margin-top: 10px;
+    color: var(--mute);
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── CONTACT ─────────────────────────────────────── */
+  .contact .body-text {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 42px;
+    line-height: 1.18;
+    letter-spacing: -0.03em;
+    max-width: 740px;
+    text-wrap: pretty;
+    color: var(--bone);
+    font-variation-settings: "opsz" 144, "SOFT" 35;
+  }
+  .channels {
+    margin-top: 44px;
+    max-width: 500px;
+  }
+  .channel {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 14.5px;
+    color: var(--bone);
+  }
+  .channel:first-child { border-top: 1px solid var(--line); }
+  .channel .k { color: var(--mute); font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; align-self: center; }
+
+  /* ── FOOTER ──────────────────────────────────────── */
+  footer {
+    margin-top: 140px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+  }
+  footer .gold { color: var(--gold); }
+</style>
+</head>
+<body style="background-color: rgb(255, 255, 255)">
+
+<div class="page">
+
+  <!-- NAV -->
+  <header class="nav">
+    <div class="mark mono">
+      <svg width="18" height="18" viewBox="0 0 22 22" aria-hidden="true">
+        <path d="M2 20 L11 2 L20 20 M6.5 13 L15.5 13" stroke="#4d7a5a" stroke-width="1.5" fill="none" />
+        <circle cx="11" cy="2" r="1.6" fill="#4d7a5a"></circle>
+      </svg>
+      <span style="color: var(--bone);">LANGYA · 琅邪</span>
+    </div>
+    <nav class="links">
+      <a href="#system" class="mono">System</a>
+      <a href="#focus" class="mono">Focus</a>
+      <a href="#principles" class="mono">Principles</a>
+      <a href="#contact" class="mono">Contact</a>
+    </nav>
+    <div class="mono available">
+      <span class="pulse"></span>
+      <span>Available · Q3 · 2026</span>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" style="padding: 0;">
+    <div class="mono name">王云帆 / langya / 琅邪王</div>
+    <h1>
+      <span class="investor">Investor.</span>
+      <span class="founder">Founder.</span>
+      <span class="engineer">AI&nbsp;Engineer.</span>
+    </h1>
+    <div class="lede">
+      <div class="en">
+        I build systems for <em class="acc">judgment</em>, capital,
+        and AI leverage — and I am the first user of every one of them.
+      </div>
+      <div class="cn">
+        投资人 · 创业者 · AI 工程师 ——<br />
+        同一台机器的三个进程，共用同一个 CPU：判断力。<br />
+        目标不是跑赢热点，而是构建判断系统、产品资产与可复用的工程能力。
+      </div>
+    </div>
+  </section>
+
+  <!-- OPERATING SYSTEM -->
+  <section id="system">
+    <div class="section-head">
+      <div class="mono tag"><span class="gold">§ 01</span><span class="rule"></span><span>Operating System</span></div>
+      <h2>Three roles, <em>one</em> spine.</h2>
+    </div>
+
+    <div class="body-grid">
+      <div></div>
+      <div>
+        <div class="role">
+          <div class="n">I.</div>
+          <div>
+            <div class="name">The Investor</div>
+            <div class="cn">投资人</div>
+            <div class="q"><em>"What compounds, and what is merely loud?"</em> 研究公司、市场结构与资本流向，在噪音里找信号。</div>
+          </div>
+          <div class="mono lbl">Capital</div>
+        </div>
+        <div class="role">
+          <div class="n">II.</div>
+          <div>
+            <div class="name">The Founder</div>
+            <div class="cn">创业者</div>
+            <div class="q"><em>"Does this exist for a real human, with real money?"</em> 验证真实需求与产品闭环，只造能被使用、被付费的东西。</div>
+          </div>
+          <div class="mono lbl">Product</div>
+        </div>
+        <div class="role">
+          <div class="n">III.</div>
+          <div>
+            <div class="name">The AI Engineer</div>
+            <div class="cn">AI 工程师</div>
+            <div class="q"><em>"Where does AI become leverage, not theatre?"</em> 构建 Agent、自动化与知识系统，让一个人具备一个团队的产能。</div>
+          </div>
+          <div class="mono lbl">Leverage</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOCUS -->
+  <section id="focus">
+    <div class="section-head">
+      <div class="mono tag"><span class="gold">§ 02</span><span class="rule"></span><span>Current Focus</span></div>
+      <h2>What I am building <em>this year.</em></h2>
+    </div>
+
+    <div class="body-grid">
+      <div></div>
+      <div>
+        <div class="focus">
+          <div>
+            <div class="t">Hermes — personal judgment OS</div>
+            <div class="d">A private agent layer that reads, drafts, decides and remembers across research, code and notes.</div>
+          </div>
+          <div class="mono lbl">Live · v0.4</div>
+        </div>
+        <div class="focus">
+          <div>
+            <div class="t">Inference &amp; semis thesis</div>
+            <div class="d">A multi-quarter memo on who actually captures the AI infra margin — and who is renting it.</div>
+          </div>
+          <div class="mono lbl">Drafting</div>
+        </div>
+        <div class="focus">
+          <div>
+            <div class="t">Validation loops</div>
+            <div class="d">Small AI tools shipped against real money, not real applause. The loop is the product.</div>
+          </div>
+          <div class="mono lbl">Running</div>
+        </div>
+        <div class="focus">
+          <div>
+            <div class="t">Knowledge &amp; decision system</div>
+            <div class="d">Notes that earn their re-use; logged calls, mistakes and reversals — so next year's me has more than vibes to argue with.</div>
+          </div>
+          <div class="mono lbl">Daily</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRINCIPLES -->
+  <section id="principles">
+    <div class="section-head">
+      <div class="mono tag"><span class="gold">§ 03</span><span class="rule"></span><span>Principles</span></div>
+      <h2>A personal <em>charter</em> — revised slowly, on purpose.</h2>
+    </div>
+
+    <div class="body-grid">
+      <div></div>
+      <div class="principles-grid">
+        <div class="principle">
+          <div class="t">First Principles</div>
+          <div class="d">Start from the physics of the problem — then check what others are doing.</div>
+          <div class="cn">从问题本质出发。</div>
+        </div>
+        <div class="principle">
+          <div class="t">Signal over Noise</div>
+          <div class="d">The world is loud by default. My job is to filter, not to chase.</div>
+          <div class="cn">过滤，而非追逐。</div>
+        </div>
+        <div class="principle">
+          <div class="t">Assets over Tasks</div>
+          <div class="d">Tasks are matches. Assets are power plants. Prefer the second.</div>
+          <div class="cn">任务是火柴，资产是发电站。</div>
+        </div>
+        <div class="principle">
+          <div class="t">Verify Before Bet</div>
+          <div class="d">Intuition is expensive. Verification is cheap. Always pay the cheaper bill first.</div>
+          <div class="cn">下注前，先验证。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <div class="section-head">
+      <div class="mono tag"><span class="gold">§ 04</span><span class="rule"></span><span>Contact</span></div>
+      <h2>Open <em>channels.</em></h2>
+    </div>
+
+    <div class="body-grid">
+      <div></div>
+      <div>
+        <div class="body-text">
+          If you care about <em class="acc">AI leverage,</em> capital judgment,
+          or building durable products — we may have something to discuss.
+        </div>
+        <div class="channels">
+          <div class="channel"><span class="k">Email</span><span>langya@ ···</span></div>
+          <div class="channel"><span class="k">X</span><span>@langyawang</span></div>
+          <div class="channel"><span class="k">Calendar</span><span>By introduction</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="mono">© Langya · MMXXVI</span>
+    <span class="mono gold">Build · Invest · Explore</span>
+    <span class="mono">Signal &gt; noise.</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
