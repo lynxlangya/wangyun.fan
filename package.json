@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "python3 -m http.server 8787",
-    "build": "node scripts/build.mjs"
+    "build": "node scripts/build.mjs",
+    "deploy": "npx wrangler deploy"
   }
 }
