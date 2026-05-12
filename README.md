@@ -16,10 +16,10 @@
 
 ## 关于
 
-单文件静态站点，无构建工具、无框架。部署在 Cloudflare Workers 之上，由 Wrangler 直接托管 `dist/` 目录。
+Astro 静态站点。部署在 Cloudflare Workers 之上，由 Wrangler 直接托管 `dist/` 目录。
 
-- **结构** — `index.html` 一份文件，承载全部内容与样式
-- **构建** — `scripts/build.mjs` 将必要文件复制到 `dist/`
+- **结构** — `src/pages/index.astro` 承载首页内容与样式
+- **构建** — `astro build` 生成 `dist/`
 - **部署** — `wrangler deploy` 上传至 Cloudflare
 
 ## 开发
@@ -39,9 +39,11 @@ pnpm deploy
 
 ```
 .
-├── index.html         # 站点本体
-├── scripts/
-│   └── build.mjs      # 静态资源构建
+├── src/
+│   └── pages/
+│       └── index.astro # 首页
+├── public/
+│   └── assets/         # 静态资源
 ├── wrangler.jsonc     # Cloudflare 配置
 └── dist/              # 构建产物
 ```
