@@ -1,20 +1,10 @@
 {
   "name": "wangyun.fan",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
+  "description": "Personal homepage for wangyun.fan",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devEngines": {
-    "packageManager": {
-      "name": "pnpm",
-      "version": "^11.1.0",
-      "onFail": "download"
-    }
-  },
-  "type": "module"
+    "dev": "python3 -m http.server 8787"
+  }
 }
