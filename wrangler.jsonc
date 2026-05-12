@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "wangyun-fan",
+  "name": "wangyunfan",
   "compatibility_date": "2026-05-12",
   "assets": {
     "directory": "./dist"
