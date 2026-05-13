@@ -1,16 +1,32 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="auto">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>王雲帆 · Wang Yunfan</title>
+<meta name="color-scheme" content="light dark">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="alternate icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23fafaf7'/%3E%3Crect x='12.5' y='9' width='3.2' height='13' fill='%230e0e0c'/%3E%3Ccircle cx='21.5' cy='21' r='1.7' fill='%231d4ed8'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+
+<script is:inline>
+  (function(){
+    try{
+      var theme = localStorage.getItem('wf.theme') || 'auto';
+      var root = document.documentElement;
+      var sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var effective = theme === 'auto' ? (sysDark ? 'dark' : 'light') : theme;
+      root.setAttribute('data-theme', theme);
+      root.setAttribute('data-effective', effective);
+    }catch(e){}
+  })();
+</script>
+
 <style>
-  :root{
+  :root,
+  html[data-effective="light"]{
     --bg:        #fafaf7;
     --bg-2:      #f3f1ea;
     --ink:       #0e0e0c;
@@ -20,10 +36,31 @@
     --rule:      #e5e3dc;
     --accent:    #1d4ed8;
     --accent-soft:#dbe4fb;
-
+    --grain:     rgba(0,0,0,.018);
+    --chrome-bg: rgba(250,250,247,.78);
+    --chrome-border:#e5e3dc;
+    --shadow:    0 1px 0 rgba(0,0,0,.02), 0 8px 24px -12px rgba(0,0,0,.10);
+  }
+  html[data-effective="dark"]{
+    --bg:        #111110;
+    --bg-2:      #1a1a17;
+    --ink:       #ecebe3;
+    --ink-soft:  #cbc9bf;
+    --muted:     #807e76;
+    --muted-2:   #56544e;
+    --rule:      #292826;
+    --accent:    #8ba8ff;
+    --accent-soft:#1c2541;
+    --grain:     rgba(255,255,255,.020);
+    --chrome-bg: rgba(17,17,16,.72);
+    --chrome-border:#292826;
+    --shadow:    0 1px 0 rgba(0,0,0,.35), 0 12px 28px -14px rgba(0,0,0,.55);
+  }
+  :root{
     --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas,
             "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", monospace;
     --serif: "IBM Plex Serif", "Songti SC", "STSong", Georgia, serif;
+    --ease: cubic-bezier(.2,.6,.2,1);
   }
 
   *{box-sizing:border-box;margin:0;padding:0}
@@ -38,17 +75,79 @@
     -webkit-font-smoothing:antialiased;
     text-rendering:optimizeLegibility;
     letter-spacing:-0.005em;
+    transition: background-color .35s var(--ease), color .35s var(--ease);
   }
-  ::selection{background:var(--accent);color:#fff}
+  ::selection{background:var(--accent);color:var(--bg)}
 
-  /* subtle paper grain */
   body::before{
     content:"";
     position:fixed;inset:0;pointer-events:none;z-index:0;
-    background-image:
-      radial-gradient(rgba(0,0,0,.018) 1px, transparent 1px);
+    background-image: radial-gradient(var(--grain) 1px, transparent 1px);
     background-size: 3px 3px;
     mix-blend-mode:multiply;
+  }
+  html[data-effective="dark"] body::before{mix-blend-mode:screen}
+
+  .chrome{
+    position:fixed;
+    top:18px;right:22px;
+    z-index:10;
+    display:flex;align-items:center;gap:8px;
+  }
+  .pill{
+    display:inline-flex;align-items:center;
+    height:30px;
+    padding:0 4px;
+    background:var(--chrome-bg);
+    border:1px solid var(--chrome-border);
+    border-radius:999px;
+    box-shadow:var(--shadow);
+    backdrop-filter:blur(10px) saturate(120%);
+    -webkit-backdrop-filter:blur(10px) saturate(120%);
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.04em;
+    transition:background-color .3s var(--ease), border-color .3s var(--ease);
+  }
+  .pill button{
+    appearance:none;background:transparent;border:0;
+    color:var(--muted);
+    font:inherit;letter-spacing:inherit;
+    padding:0 10px;height:24px;
+    border-radius:999px;
+    cursor:pointer;
+    display:inline-flex;align-items:center;gap:6px;
+    transition:color .2s var(--ease), background .2s var(--ease);
+  }
+  .pill button:hover{color:var(--ink)}
+  .pill .theme{min-width:74px;justify-content:center}
+  .pill .theme .ic{
+    width:13px;height:13px;display:inline-block;position:relative;
+    transition:transform .35s var(--ease);
+  }
+  .pill .theme:hover .ic{transform:rotate(-20deg)}
+  .pill .theme .lbl{
+    font-size:10px;color:var(--muted-2);
+    letter-spacing:.08em;
+    text-transform:uppercase;
+  }
+  .ic-sun,.ic-moon,.ic-auto{
+    background:var(--ink);
+    -webkit-mask-position:center;mask-position:center;
+    -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+    -webkit-mask-size:contain;mask-size:contain;
+  }
+  .ic-sun{
+    -webkit-mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round'><circle cx='12' cy='12' r='4'/><path d='M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41'/></svg>");
+            mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round'><circle cx='12' cy='12' r='4'/><path d='M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41'/></svg>");
+  }
+  .ic-moon{
+    -webkit-mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'><path d='M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z'/></svg>");
+            mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'><path d='M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z'/></svg>");
+  }
+  .ic-auto{
+    -webkit-mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M12 3a9 9 0 1 0 0 18V3z'/><circle cx='12' cy='12' r='9' fill='none' stroke='black' stroke-width='1.8'/></svg>");
+            mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M12 3a9 9 0 1 0 0 18V3z'/><circle cx='12' cy='12' r='9' fill='none' stroke='black' stroke-width='1.8'/></svg>");
   }
 
   main{
@@ -57,35 +156,29 @@
     padding:96px 32px 160px;
     margin:0 auto;
   }
-  @media (max-width:520px){
-    main{padding:64px 22px 120px}
+  @media (max-width:560px){
+    main{padding:80px 22px 120px}
     body{font-size:13.5px}
+    .chrome{top:12px;right:12px}
   }
 
-  /* ---------- stagger entry ---------- */
   .r{opacity:0;transform:translateY(8px);
-     animation: rise .9s cubic-bezier(.2,.6,.2,1) forwards}
+     animation:rise .9s var(--ease) forwards}
   @keyframes rise{to{opacity:1;transform:none}}
-  .d1{animation-delay:.05s} .d2{animation-delay:.16s}
-  .d3{animation-delay:.28s} .d4{animation-delay:.42s}
-  .d5{animation-delay:.56s} .d6{animation-delay:.70s}
-  .d7{animation-delay:.84s} .d8{animation-delay:.98s}
-  .d9{animation-delay:1.12s} .d10{animation-delay:1.26s}
-  @media (prefers-reduced-motion: reduce){
+  .d1{animation-delay:.05s}.d2{animation-delay:.16s}
+  .d3{animation-delay:.28s}.d4{animation-delay:.42s}
+  .d5{animation-delay:.56s}.d6{animation-delay:.70s}
+  .d7{animation-delay:.84s}.d8{animation-delay:.98s}
+  @media (prefers-reduced-motion:reduce){
     .r{opacity:1;transform:none;animation:none}
   }
 
-  /* ---------- header ---------- */
   header{
     display:flex;align-items:flex-start;justify-content:space-between;
     gap:24px;
   }
-  .id{
-    display:flex;flex-direction:column;gap:6px;
-  }
-  .name-row{
-    display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
-  }
+  .id{display:flex;flex-direction:column;gap:6px}
+  .name-row{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
   h1{
     font-family:var(--mono);
     font-weight:500;
@@ -93,11 +186,7 @@
     letter-spacing:-0.01em;
     color:var(--ink);
   }
-  h1 .en{
-    color:var(--muted);
-    font-weight:400;
-    margin-left:2px;
-  }
+  h1 .en{color:var(--muted);font-weight:400;margin-left:2px}
   .caret{
     display:inline-block;width:7px;height:14px;
     background:var(--ink);
@@ -106,59 +195,51 @@
     animation:blink 1.05s steps(1) infinite;
   }
   @keyframes blink{50%{opacity:0}}
-
-  .role{
-    color:var(--muted);
-    font-size:13px;
-    letter-spacing:.01em;
-  }
+  .role{color:var(--muted);font-size:13px;letter-spacing:.01em}
   .role span{color:var(--ink-soft)}
 
-  /* status */
   .status{
     display:flex;align-items:center;gap:8px;
     font-size:12px;color:var(--muted);
     padding:4px 0 0;
     cursor:pointer;
-    background:none;
-    border:none;
-    font-family:inherit;
-    letter-spacing:inherit;
-    -webkit-appearance:none;
-    appearance:none;
+    background:none;border:none;
+    font-family:inherit;letter-spacing:inherit;
+    -webkit-appearance:none;appearance:none;
   }
   .dot{
     position:relative;width:7px;height:7px;border-radius:50%;
     background:var(--accent);
     box-shadow:0 0 0 0 rgba(29,78,216,.45);
-    animation: pulse 2.4s ease-out infinite;
+    animation:pulse 2.4s ease-out infinite;
   }
   @keyframes pulse{
     0%{box-shadow:0 0 0 0 rgba(29,78,216,.45)}
     80%,100%{box-shadow:0 0 0 8px rgba(29,78,216,0)}
   }
-  .status-text{transition: color .2s ease}
+  .status-text{transition:color .2s var(--ease)}
   .status:hover .status-text{color:var(--ink)}
+  .status .b{display:none}
+  .status[data-flip="1"] .a{display:none}
+  .status[data-flip="1"] .b{display:inline}
 
-  /* ---------- intro ---------- */
   .intro{
     margin-top:48px;
     font-size:15px;
-    line-height:1.75;
+    line-height:1.78;
     color:var(--ink-soft);
     max-width:62ch;
   }
   .intro p + p{margin-top:1em}
-  .intro .zh{color:var(--ink)}
   .intro em{font-family:var(--serif);font-style:italic;color:var(--ink)}
 
-  /* ---------- section ---------- */
   section{margin-top:64px}
   .sec-head{
     display:flex;align-items:baseline;justify-content:space-between;
     padding-bottom:10px;
     border-bottom:1px solid var(--rule);
     margin-bottom:18px;
+    gap:16px;
   }
   .sec-head h2{
     font-size:11px;
@@ -167,7 +248,7 @@
     text-transform:uppercase;
     color:var(--ink);
   }
-  .sec-head h2 .zh{
+  .sec-head h2 .sub{
     color:var(--muted);
     margin-left:10px;
     letter-spacing:.06em;
@@ -178,7 +259,6 @@
     white-space:nowrap;
   }
 
-  /* ---------- now list ---------- */
   .now{display:flex;flex-direction:column;gap:6px;font-size:14px}
   .now li{
     list-style:none;
@@ -188,96 +268,73 @@
   }
   .now .mk{color:var(--muted-2)}
   .now strong{color:var(--ink);font-weight:500}
+  .now em{font-family:var(--serif);font-style:italic;color:var(--ink)}
 
-  /* ---------- entry rows (work / invest / writing) ---------- */
   .rows{display:flex;flex-direction:column}
   .row{
     display:grid;
-    grid-template-columns: 92px 1fr auto;
+    grid-template-columns:92px 1fr auto;
     gap:18px;
     padding:14px 0;
     border-bottom:1px dashed var(--rule);
     align-items:baseline;
-    transition: background .25s ease, padding .25s ease;
+    transition:background .25s var(--ease), padding .25s var(--ease);
   }
   .row:last-child{border-bottom:none}
-  .row .when{
-    color:var(--muted);font-size:12px;
-    letter-spacing:.02em;
-    padding-top:1px;
-  }
-  .row .body{display:flex;flex-direction:column;gap:3px}
+  .row .when{color:var(--muted);font-size:12px;letter-spacing:.02em;padding-top:1px}
+  .row .body{display:flex;flex-direction:column;gap:3px;min-width:0}
   .row .ttl{color:var(--ink);font-weight:500;font-size:14px}
   .row .ttl .at{color:var(--muted);font-weight:400}
   .row .desc{color:var(--muted);font-size:12.5px;line-height:1.55}
   .row .tag{
-    font-size:10.5px;
-    color:var(--muted-2);
-    letter-spacing:.1em;
-    text-transform:uppercase;
-    padding-top:2px;
-    white-space:nowrap;
+    font-size:10.5px;color:var(--muted-2);
+    letter-spacing:.1em;text-transform:uppercase;
+    padding-top:2px;white-space:nowrap;
   }
   .row:hover{
     background:linear-gradient(90deg, transparent, var(--bg-2) 6%, var(--bg-2) 94%, transparent);
     padding-left:8px;padding-right:8px;
     margin-left:-8px;margin-right:-8px;
   }
-  @media (max-width:520px){
-    .row{grid-template-columns: 76px 1fr;gap:14px}
+  @media (max-width:560px){
+    .row{grid-template-columns:76px 1fr;gap:14px}
     .row .tag{grid-column:1 / -1;padding-top:2px}
   }
-
-  /* ---------- writing (with read-time hover) ---------- */
-  .write .row .tag{color:var(--muted)}
   .write .row:hover .tag{color:var(--accent)}
 
-  /* ---------- elsewhere ---------- */
-  .elsewhere{
-    display:grid;
-    grid-template-columns:repeat(2, 1fr);
-    gap:2px 28px;
-  }
-  @media (max-width:520px){.elsewhere{grid-template-columns:1fr}}
+  .elsewhere{display:grid;grid-template-columns:repeat(2,1fr);gap:2px 28px}
+  @media (max-width:560px){.elsewhere{grid-template-columns:1fr}}
   .elsewhere a{
     display:flex;justify-content:space-between;align-items:baseline;
-    padding:11px 0;
-    border-bottom:1px dashed var(--rule);
-    color:var(--ink);
-    text-decoration:none;
-    font-size:13.5px;
+    padding:11px 0;border-bottom:1px dashed var(--rule);
+    color:var(--ink);text-decoration:none;font-size:13.5px;
     position:relative;
   }
   .elsewhere a .k{color:var(--muted);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
-  .elsewhere a .v{
-    color:var(--ink-soft);
-    transition: color .2s ease, transform .25s cubic-bezier(.2,.6,.2,1);
-  }
+  .elsewhere a .v{color:var(--ink-soft);transition:color .2s var(--ease), transform .25s var(--ease)}
   .elsewhere a:hover .v{color:var(--accent);transform:translateX(-2px)}
   .elsewhere a::after{
     content:"↗";
-    position:absolute;right:-2px;top:50%;transform:translate(-6px,-50%) rotate(0deg);
-    color:var(--accent);
-    opacity:0;
-    transition: opacity .25s ease, transform .25s cubic-bezier(.2,.6,.2,1);
+    position:absolute;right:-2px;top:50%;
+    transform:translate(-6px,-50%);
+    color:var(--accent);opacity:0;
+    transition:opacity .25s var(--ease), transform .25s var(--ease);
     font-size:12px;
   }
-  .elsewhere a:hover::after{opacity:1;transform:translate(0,-50%) rotate(0deg)}
+  .elsewhere a:hover::after{opacity:1;transform:translate(0,-50%)}
 
-  /* generic link */
   a.lnk{
     color:var(--ink);
     text-decoration:none;
-    background-image: linear-gradient(var(--accent), var(--accent));
+    background-image:linear-gradient(var(--accent), var(--accent));
     background-repeat:no-repeat;
-    background-size: 0% 1px;
-    background-position: 0 100%;
-    transition: background-size .35s cubic-bezier(.2,.6,.2,1), color .2s;
+    background-size:0% 1px;
+    background-position:0 100%;
+    transition:background-size .35s var(--ease), color .2s;
     padding-bottom:1px;
   }
   a.lnk:hover{background-size:100% 1px;color:var(--accent)}
 
-  /* ---------- footer ---------- */
   footer{
     margin-top:80px;
     padding-top:18px;
@@ -286,7 +343,7 @@
     color:var(--muted-2);
     font-size:11px;letter-spacing:.06em;
   }
-  footer .sig{display:flex;gap:14px;align-items:baseline}
+  .mark{font-family:var(--mono);font-size:11px;color:var(--muted-2);letter-spacing:.04em;user-select:none}
   footer kbd{
     font-family:var(--mono);
     font-size:10px;
@@ -297,35 +354,21 @@
     border-radius:3px;
     color:var(--muted);
   }
-
-  /* color toast for ?: ::after caret on h1 link */
-  .name-row .here{
-    font-size:10.5px;color:var(--muted-2);
-    letter-spacing:.1em;text-transform:uppercase;
-    padding-left:2px;
-  }
-
-  /* tiny ascii brand mark */
-  .mark{
-    font-family:var(--mono);
-    font-size:11px;color:var(--muted-2);
-    letter-spacing:.04em;
-    user-select:none;
-  }
-
-  /* easter-egg: click status to flip text */
-  .status[data-flip="1"] .status-text::before{content:"available for coffee / "}
-  .status[data-flip="1"] .status-text > .a{display:none}
-  .status .b{display:none}
-  .status[data-flip="1"] .a{display:none}
-  .status[data-flip="1"] .b{display:inline}
 </style>
 </head>
 <body>
 
+<nav class="chrome" aria-label="站点控制">
+  <div class="pill">
+    <button class="theme" id="themeBtn" title="切换主题：自动 / 浅色 / 深色" type="button">
+      <span class="ic" id="themeIc" aria-hidden="true"></span>
+      <span class="lbl" id="themeLbl">AUTO</span>
+    </button>
+  </div>
+</nav>
+
 <main>
 
-  <!-- ===== HEADER ===== -->
   <header class="r d1">
     <div class="id">
       <div class="name-row">
@@ -336,105 +379,100 @@
       </div>
     </div>
 
-    <button class="status" id="status" aria-label="current status" type="button">
+    <button class="status" id="status" aria-label="当前状态" type="button">
       <span class="dot" aria-hidden="true"></span>
       <span class="status-text">
-        <span class="a">in SF · open to coffee</span>
-        <span class="b">回复邮件中 · be back soon</span>
+        <span class="a">在杭州 · 欢迎喝咖啡</span>
+        <span class="b">回复邮件中 · 稍后回来</span>
       </span>
     </button>
   </header>
 
-  <!-- ===== INTRO ===== -->
   <div class="intro r d2">
-    <p class="zh">
+    <p>
       在湾区做 AI。白天写代码、训模型、和 founder 聊；
       晚上读论文、写点想法、给早期项目写支票。
     </p>
     <p>
-      Building &amp; backing tools at the edge of what models can do —
-      from <em>inference systems</em> and <em>developer agents</em> to the
-      odd consumer experiment. Previously shipped infra at scale; now
-      mostly betting on small teams with strong taste.
+      构建并支持那些站在模型能力边缘的工具，从 <em>推理系统</em>、<em>开发者 agent</em>，
+      到一些不太正经的消费实验。曾在规模化基础设施里写代码；现在更多地把钱押在
+      有审美、有手感的小团队身上。
     </p>
   </div>
 
-  <!-- ===== NOW ===== -->
   <section class="r d3">
     <div class="sec-head">
-      <h2>Now <span class="zh">现在</span></h2>
-      <div class="meta">May 2026 · San Francisco</div>
+      <h2>现在 <span class="sub">Now</span></h2>
+      <div class="meta">2026 年 5 月 · 旧金山</div>
     </div>
     <ul class="now">
-      <li><span class="mk">—</span><span>Building <strong>a stealth AI infra company</strong>. 0→1 阶段，三人小队。</span></li>
-      <li><span class="mk">—</span><span>Angel checks in <strong>dev tools, agents, voice</strong>. 写过的 SAFE 比写过的 PR 多。</span></li>
-      <li><span class="mk">—</span><span>Reading: <em>The Beginning of Infinity</em>, again, slower this time.</span></li>
-      <li><span class="mk">—</span><span>Running a weekly <strong>dim sum + demo day</strong> for SF builders — DM if you want in.</span></li>
+      <li><span class="mk">—</span><span>正在做 <strong>一家隐身阶段的 AI 基础设施公司</strong>。0→1 阶段，三人小队。</span></li>
+      <li><span class="mk">—</span><span>在 <strong>开发工具、Agent、语音</strong> 方向写天使支票。投过的 SAFE 比写过的 PR 多。</span></li>
+      <li><span class="mk">—</span><span>在重读 <em>The Beginning of Infinity</em>，这次慢一点。</span></li>
+      <li><span class="mk">—</span><span>每周一次 <strong>点心 + Demo</strong> 小聚，SF 的 builder，DM 我入群。</span></li>
     </ul>
   </section>
 
-  <!-- ===== WORK ===== -->
   <section class="r d4">
     <div class="sec-head">
-      <h2>Work <span class="zh">经历</span></h2>
-      <div class="meta">2017 — present</div>
+      <h2>经历 <span class="sub">Work</span></h2>
+      <div class="meta">2017 — 至今</div>
     </div>
     <div class="rows">
       <div class="row">
-        <div class="when">2025 — now</div>
+        <div class="when">2025 — 至今</div>
         <div class="body">
-          <div class="ttl">Founder &amp; CTO <span class="at">/ Stealth</span></div>
-          <div class="desc">Faster, cheaper inference for small models. We make the API call you don't notice.</div>
+          <div class="ttl">创始人 &amp; CTO <span class="at">/ Stealth</span></div>
+          <div class="desc">让小模型推理更快、更便宜。我们做的那种 API 调用，是你不会注意到的那种。</div>
         </div>
         <div class="tag">Building</div>
       </div>
       <div class="row">
         <div class="when">2022 — 25</div>
         <div class="body">
-          <div class="ttl">Staff Engineer <span class="at">/ a large model lab</span></div>
-          <div class="desc">Trained pre-/post-training pipelines for a frontier model family. Shipped two generations.</div>
+          <div class="ttl">研究工程师 <span class="at">/ 某大模型实验室</span></div>
+          <div class="desc">负责前/后训练管线，发布了两代基座模型。</div>
         </div>
         <div class="tag">ML Infra</div>
       </div>
       <div class="row">
         <div class="when">2020 — 22</div>
         <div class="body">
-          <div class="ttl">Tech Lead <span class="at">/ search &amp; ranking, a consumer app</span></div>
-          <div class="desc">Recsys for 200M+ DAU. Cut tail latency by half, doubled CTR on cold-start sessions.</div>
+          <div class="ttl">技术负责人 <span class="at">/ 某消费 App 的搜索与排序</span></div>
+          <div class="desc">服务 2 亿日活的推荐系统。把长尾延迟砍掉一半，冷启动 CTR 翻倍。</div>
         </div>
         <div class="tag">Recsys</div>
       </div>
       <div class="row">
         <div class="when">2017 — 20</div>
         <div class="body">
-          <div class="ttl">Software Engineer <span class="at">/ first job, big tech</span></div>
-          <div class="desc">Distributed systems. Wrote my first 100k lines of Go and one regrettable Python script.</div>
+          <div class="ttl">软件工程师 <span class="at">/ 第一份工作，大厂</span></div>
+          <div class="desc">分布式系统。写下第一个 10 万行 Go，和一段不太想承认的 Python。</div>
         </div>
         <div class="tag">Systems</div>
       </div>
     </div>
   </section>
 
-  <!-- ===== INVEST ===== -->
   <section class="r d5">
     <div class="sec-head">
-      <h2>Invest <span class="zh">投资</span></h2>
-      <div class="meta">Angel · pre-seed · ~30 checks</div>
+      <h2>投资 <span class="sub">Invest</span></h2>
+      <div class="meta">天使 · 种子 · 约 30 笔</div>
     </div>
     <div class="rows">
       <div class="row">
         <div class="when">2025</div>
         <div class="body">
           <div class="ttl">Halcyon Labs</div>
-          <div class="desc">Verifiable inference for high-stakes agents.</div>
+          <div class="desc">高风险 Agent 场景下的可验证推理。</div>
         </div>
         <div class="tag">Seed · led</div>
       </div>
       <div class="row">
         <div class="when">2024</div>
         <div class="body">
-          <div class="ttl">Pinecone-shaped thing</div>
-          <div class="desc">Spatial memory for long-running coding agents.</div>
+          <div class="ttl">某记忆数据库</div>
+          <div class="desc">为长时运行的编码 Agent 提供空间记忆。</div>
         </div>
         <div class="tag">Pre-seed</div>
       </div>
@@ -442,7 +480,7 @@
         <div class="when">2024</div>
         <div class="body">
           <div class="ttl">Mockingbird</div>
-          <div class="desc">Real-time voice cloning for accessibility, on-device.</div>
+          <div class="desc">为可访问性服务的实时端上语音克隆。</div>
         </div>
         <div class="tag">Pre-seed</div>
       </div>
@@ -450,60 +488,58 @@
         <div class="when">2023</div>
         <div class="body">
           <div class="ttl">Strata.dev</div>
-          <div class="desc">A code review tool that actually understands the diff.</div>
+          <div class="desc">一个真的能看懂 diff 的代码审查工具。</div>
         </div>
         <div class="tag">Seed</div>
       </div>
     </div>
   </section>
 
-  <!-- ===== WRITING ===== -->
   <section class="r d6 write">
     <div class="sec-head">
-      <h2>Writing <span class="zh">写作</span></h2>
-      <div class="meta">essays · notes</div>
+      <h2>写作 <span class="sub">Writing</span></h2>
+      <div class="meta">文章 · 笔记</div>
     </div>
     <div class="rows">
       <div class="row">
         <div class="when">2026.03</div>
         <div class="body">
-          <div class="ttl"><a class="lnk" href="#">The hidden cost of cheap tokens</a></div>
+          <div class="ttl"><a class="lnk" href="#">廉价 token 的隐藏成本</a></div>
           <div class="desc">为什么 token 单价下降，反而让产品工程变得更难。</div>
         </div>
-        <div class="tag">12 min</div>
+        <div class="tag">12 分钟</div>
       </div>
       <div class="row">
         <div class="when">2026.01</div>
         <div class="body">
           <div class="ttl"><a class="lnk" href="#">小模型、慢思考、长上下文</a></div>
-          <div class="desc">A field note on where I think the next year of inference goes.</div>
+          <div class="desc">关于下一年推理走向的一些田野笔记。</div>
         </div>
-        <div class="tag">8 min</div>
+        <div class="tag">8 分钟</div>
       </div>
       <div class="row">
         <div class="when">2025.11</div>
         <div class="body">
-          <div class="ttl"><a class="lnk" href="#">How I read a startup in 20 minutes</a></div>
+          <div class="ttl"><a class="lnk" href="#">如何在 20 分钟里读一家 startup</a></div>
           <div class="desc">投资人和工程师在尽调时关心的，其实是同一件事。</div>
         </div>
-        <div class="tag">6 min</div>
+        <div class="tag">6 分钟</div>
       </div>
       <div class="row">
         <div class="when">2025.07</div>
         <div class="body">
-          <div class="ttl"><a class="lnk" href="#">Notes on taste, from a person who has none</a></div>
-          <div class="desc">An attempt at defining the thing engineers admire and can't ship.</div>
+          <div class="ttl"><a class="lnk" href="#">关于 taste，来自一个没有 taste 的人</a></div>
+          <div class="desc">尝试定义那种工程师都羡慕、却做不出来的东西。</div>
         </div>
-        <div class="tag">5 min</div>
+        <div class="tag">5 分钟</div>
       </div>
     </div>
   </section>
 
-  <!-- ===== ELSEWHERE ===== -->
   <section class="r d7">
     <div class="sec-head">
-      <h2>Elsewhere <span class="zh">别处</span></h2>
-      <div class="meta">prefer email</div>
+      <h2>别处 <span class="sub">Elsewhere</span></h2>
+      <div class="meta">邮件最佳</div>
     </div>
     <div class="elsewhere">
       <a href="/cdn-cgi/l/email-protection#e38b8aa394828d849a968dcd85828d"><span class="k">Email</span><span class="v"><span class="__cf_email__" data-cfemail="2d45446d5a4c434a545843034b4c43">[email&#160;protected]</span></span></a>
@@ -515,36 +551,67 @@
     </div>
   </section>
 
-  <!-- ===== FOOTER ===== -->
   <footer class="r d8">
-    <div class="sig">
-      <span class="mark">wangyun.fan · v3.0</span>
+    <div>
+      <span class="mark">wangyun.fan · v3.1</span>
     </div>
     <div>
-      <kbd>?</kbd> for shortcuts
+      <kbd>T</kbd> 主题
     </div>
   </footer>
 
 </main>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // Status easter egg — click the dot to flip status
-  (function(){
-    const s = document.getElementById('status');
-    if(!s) return;
-    s.addEventListener('click', () => {
-      const cur = s.getAttribute('data-flip') === '1';
-      s.setAttribute('data-flip', cur ? '0' : '1');
-    });
-  })();
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script is:inline>
+(function(){
+  const root = document.documentElement;
+  const mq = window.matchMedia('(prefers-color-scheme: dark)');
+  const ICONS = { auto:'ic-auto', light:'ic-sun', dark:'ic-moon' };
+  const LABELS = { auto:'AUTO', light:'LIGHT', dark:'DARK' };
+  const ic = document.getElementById('themeIc');
+  const lbl = document.getElementById('themeLbl');
+  const btn = document.getElementById('themeBtn');
 
-  // ? hint — show a tiny console message; keeps things minimal
-  document.addEventListener('keydown', (e) => {
-    if (e.key === '?'){
-      console.log('%c hi.','color:#1d4ed8;font-family:monospace;font-size:14px');
-      console.log('say hello → hi@wangyun.fan');
+  function applyTheme(theme, persist=true){
+    if (!['auto','light','dark'].includes(theme)) theme = 'auto';
+    root.setAttribute('data-theme', theme);
+    const effective = theme === 'auto' ? (mq.matches ? 'dark' : 'light') : theme;
+    root.setAttribute('data-effective', effective);
+    if (ic) ic.className = 'ic ' + ICONS[theme];
+    if (lbl) lbl.textContent = LABELS[theme];
+    if (persist){
+      try{ localStorage.setItem('wf.theme', theme) }catch(e){}
+    }
+  }
+
+  applyTheme(root.getAttribute('data-theme') || 'auto', false);
+  if (btn){
+    btn.addEventListener('click', () => {
+      const cur = root.getAttribute('data-theme') || 'auto';
+      applyTheme(cur === 'auto' ? 'light' : cur === 'light' ? 'dark' : 'auto');
+    });
+  }
+  if (mq.addEventListener){
+    mq.addEventListener('change', () => {
+      if ((root.getAttribute('data-theme') || 'auto') === 'auto') applyTheme('auto', false);
+    });
+  }
+
+  const status = document.getElementById('status');
+  if (status){
+    status.addEventListener('click', () => {
+      const cur = status.getAttribute('data-flip') === '1';
+      status.setAttribute('data-flip', cur ? '0' : '1');
+    });
+  }
+
+  document.addEventListener('keydown', (event) => {
+    if (event.target && event.target.matches('input,textarea,[contenteditable]')) return;
+    if (event.key === 't' || event.key === 'T'){
+      btn && btn.click();
     }
   });
+})();
 </script>
 
 </body>
