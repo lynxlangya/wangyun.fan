@@ -285,6 +285,33 @@ html[data-effective="dark"] .dot{box-shadow:0 0 0 0 rgba(0,178,30,.5)}
 .intro > .role + p{margin-top:2em;margin-left:4em}
 .intro em{font-family:var(--serif);font-style:italic;color:var(--ink)}
 
+.intro .building{
+  display:inline-block;transform-origin:center;
+  animation: bld-breathe 3.6s ease-in-out infinite;
+  will-change: opacity, transform;
+}
+.intro .building .dots i{
+  display:inline-block;font-style:inherit;
+  animation: bld-dot 1.6s ease-in-out infinite;
+}
+.intro .building .dots i:nth-child(2){animation-delay:.18s}
+.intro .building .dots i:nth-child(3){animation-delay:.36s}
+
+@keyframes bld-breathe{
+  0%,100%{opacity:.38;transform:scale(.96)}
+  50%    {opacity:1;  transform:scale(1.04)}
+}
+@keyframes bld-dot{
+  0%,100%{opacity:.3;transform:translateY(0)}
+  50%    {opacity:1; transform:translateY(-2.5px)}
+}
+@media (prefers-reduced-motion:reduce){
+  .intro .building,
+  .intro .building .dots i{
+    animation:none;opacity:1;transform:none;
+  }
+}
+
 section{margin-top:64px;scroll-margin-top:80px}
 .sec-head{
   display:flex;align-items:baseline;justify-content:space-between;
