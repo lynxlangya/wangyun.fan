@@ -7,10 +7,10 @@ export const navItems = [
 ];
 
 export const nowItems = [
-  '在自驱一个 <strong>AI 智能报表 (ai-report)</strong>——React + AI SDK + Tool Calling + Zod。想看看把"自然语言提需求"做成可执行、可审计的工具链，到底能做到哪一步。',
-  '八年前端，<strong>现在更多时间在 AI 这一层</strong>：agent、SSE、schema、可观测。仍是工程，不想做炫技。',
-  '二级市场的钱主要押在 <strong>AI 基建、半导体、出海消费</strong>。长期持有，不太看盘。',
-  '在重读 <em>《Show Your Work!》</em>；最近被 <strong>Cursor、v0、Linear</strong> 的产品手感反复折磨。',
+  '<strong>多个内部项目</strong>并行 —— 维护与开发同时进行。',
+  '迭代 <a href="https://github.com/lynxlangya/knowject"><strong><em>KnowJect「项目级知识管理」</em></strong></a> —— 开源项目。',
+  '在读 <em>《国富论》</em>。',
+  '<strong>打磨与 AI 的深度协作</strong> —— 提高效能，拓宽视野，构建 AI 体系。',
 ];
 
 export const workRows = [
