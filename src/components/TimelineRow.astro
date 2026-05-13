@@ -1,0 +1,24 @@
+---
+interface Props {
+  when: string;
+  title: string;
+  desc: string;
+  tag: string;
+  at?: string;
+  href?: string;
+}
+
+const { when, title, at, desc, tag, href } = Astro.props;
+---
+
+<div class="row">
+  <div class="when">{when}</div>
+  <div class="body">
+    <div class="ttl">
+      {href ? <a class="lnk" href={href}>{title}</a> : title}
+      {!href && at && <span class="at"> {at}</span>}
+    </div>
+    <div class="desc">{desc}</div>
+  </div>
+  <div class="tag">{tag}</div>
+</div>

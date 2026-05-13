@@ -1,0 +1,43 @@
+---
+import { navItems } from '../data/home';
+---
+
+<button class="menu-trigger" id="menuBtn" aria-expanded="false" aria-controls="menuOverlay" type="button">
+  <span class="lines" aria-hidden="true"><i></i><i></i></span>
+  <span class="label" id="menuLabel">menu</span>
+</button>
+
+<div class="overlay" id="menuOverlay" role="dialog" aria-modal="true" aria-label="站点菜单">
+  <div class="overlay-inner">
+    <div class="overlay-label">wangyun.fan / index</div>
+
+    <ul class="nav">
+      {navItems.map((item, index) => (
+        <li>
+          <a href={item.href} data-close>
+            <span class="num">{String(index + 1).padStart(2, '0')}</span>
+            <span class="lbl">{item.label}<span class="en">{item.en}</span></span>
+            <span class="arrow">→</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <div class="overlay-foot">
+      <div class="theme" role="group" aria-label="主题">
+        <div class="theme-label">appearance</div>
+        <div class="swatches">
+          <button class="sw" data-theme-btn="auto" aria-label="auto" aria-pressed="false"><span class="face face-auto"></span></button>
+          <button class="sw" data-theme-btn="light" aria-label="light" aria-pressed="false"><span class="face face-light"></span></button>
+          <button class="sw" data-theme-btn="dark" aria-label="dark" aria-pressed="false"><span class="face face-dark"></span></button>
+          <span class="sw-name" id="themeName">AUTO</span>
+        </div>
+      </div>
+
+      <div class="contact">
+        <div class="k">say hi</div>
+        <a href="/cdn-cgi/l/email-protection#e38b8aa394828d849a968dcd85828d"><span class="__cf_email__" data-cfemail="2d45446d5a4c434a545843034b4c43">[email&#160;protected]</span></a>
+      </div>
+    </div>
+  </div>
+</div>

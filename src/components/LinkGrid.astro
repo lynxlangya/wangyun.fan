@@ -1,0 +1,22 @@
+---
+import type { elsewhereLinks } from '../data/home';
+
+interface Props {
+  links: typeof elsewhereLinks;
+}
+
+const { links } = Astro.props;
+---
+
+<div class="elsewhere">
+  {links.map((link) => (
+    <a href={link.href}>
+      <span class="k">{link.key}</span>
+      <span class="v">
+        {'cfemail' in link
+          ? <span class="__cf_email__" data-cfemail={link.cfemail}>[email&#160;protected]</span>
+          : link.value}
+      </span>
+    </a>
+  ))}
+</div>
