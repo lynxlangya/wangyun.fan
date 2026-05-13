@@ -73,7 +73,7 @@ if (mq.addEventListener) {
 
 const status = document.getElementById('status');
 const statusText = document.getElementById('statusText');
-const statusMessages = ['在旧金山 · 欢迎喝咖啡', '回复邮件中 · 稍后回来', '深夜写代码中'];
+const statusMessages = ['在杭州 · 欢迎喝茶', '回复邮件中 · 稍后回来', '深夜在 build'];
 let statusIndex = 0;
 
 if (status && statusText) {

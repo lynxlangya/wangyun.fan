@@ -105,12 +105,12 @@ export const writingRows = [
 export const elsewhereLinks = [
   {
     key: 'Email',
-    href: '/cdn-cgi/l/email-protection#e38b8aa394828d849a968dcd85828d',
-    cfemail: '2d45446d5a4c434a545843034b4c43',
+    href: '/cdn-cgi/l/email-protection#5a323f231a2d3b343d232f34743c3b34',
+    cfemail: '5a323f231a2d3b343d232f34743c3b34',
   },
-  { key: 'Twitter', href: '#', value: '@wangyunfan' },
-  { key: 'GitHub', href: '#', value: 'github.com/wangyunfan' },
-  { key: 'LinkedIn', href: '#', value: 'in/wangyunfan' },
-  { key: 'Substack', href: '#', value: 'wangyun.substack.com' },
-  { key: 'Read.cv', href: '#', value: 'read.cv/wangyunfan' },
+  {
+    key: 'GitHub',
+    href: 'https://github.com/lynxlangya',
+    value: 'github.com/lynxlangya',
+  },
 ];
