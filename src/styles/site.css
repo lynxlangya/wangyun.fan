@@ -282,7 +282,7 @@ html[data-effective="dark"] .dot{box-shadow:0 0 0 0 rgba(0,178,30,.5)}
   color:var(--ink-soft);max-width:62ch;
 }
 .intro p + p{margin-top:1em}
-.intro > .role + p{margin-top:8px;margin-left:4em}
+.intro > .role + p{margin-top:2em;margin-left:4em}
 .intro em{font-family:var(--serif);font-style:italic;color:var(--ink)}
 
 section{margin-top:64px;scroll-margin-top:80px}
