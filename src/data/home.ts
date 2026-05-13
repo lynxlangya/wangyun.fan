@@ -8,9 +8,9 @@ export const navItems = [
 
 export const nowItems = [
   '<strong>诸事并举</strong> —— 修者修，作者作',
-  'in active dev：<a href="https://github.com/lynxlangya/knowject"><strong><em>KnowJect</em></strong></a> · 项目级知识管理 · open source',
   '案上 <em>《国富论》</em>，缓诵之',
   '<strong>御 AI 以共事</strong> —— 增效，广见，自成体系',
+  '<strong>日入而息，日出而作</strong> —— 养精蓄锐',
   '<strong>择其善者而恒之</strong>',
 ];
 
