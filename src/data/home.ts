@@ -24,7 +24,7 @@ export const workRows = [
   {
     when: '2022 — 24',
     title: '政务三维数字孪生',
-    desc: 'Vue3 · TS · SuperMap3D · Cesium · WebGL · Three.js · RxJS',
+    desc: 'React · TS · SuperMap3D · Cesium · WebGL · Three.js · RxJS',
     tag: '政务',
   },
   {
