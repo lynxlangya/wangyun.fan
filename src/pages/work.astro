@@ -1,0 +1,65 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import SiteMenu from '../components/SiteMenu.astro';
+import { workTimeline } from '../data/home';
+---
+
+<SiteLayout title="经历 · Work · 王雲帆">
+  <SiteMenu />
+
+  <script is:inline>
+    try {
+      if (sessionStorage.getItem('wf.workRail')) {
+        document.documentElement.setAttribute('data-rail-played', '1');
+      } else {
+        sessionStorage.setItem('wf.workRail', '1');
+      }
+    } catch (e) {}
+  </script>
+
+  <main class="work-main">
+    <header class="work-head r d1">
+      <h1>Work <span class="zh">经历</span></h1>
+      <p class="legend" aria-label="迁徙轴 legend">
+        <span><b>B</b>业务</span>
+        <span class="sep">·</span>
+        <span><b>C</b>消费</span>
+        <span class="sep">·</span>
+        <span><b>G</b>政务</span>
+        <span class="sep">·</span>
+        <span><b>AI</b></span>
+      </p>
+    </header>
+
+    <section class="timeline">
+      {workTimeline.map((item, i) => {
+        const delay = `d${Math.min(i + 2, 8)}`;
+        return (
+          <article class:list={['entry', 'r', delay, item.current && 'is-current']}>
+            <div class="entry-when">{item.when}</div>
+            <div class="entry-rail" aria-hidden="true">
+              <span class="entry-dot"></span>
+            </div>
+            <div class="entry-body">
+              <h2 class="entry-title">{item.title}</h2>
+              {item.stack && <div class="entry-stack">{item.stack}</div>}
+              {item.notes && item.notes.length > 0 && (
+                <ul class="entry-notes">
+                  {item.notes.map((n) => (
+                    <li><span class="mk" aria-hidden="true">—</span><span>{n}</span></li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            <div class="entry-era" aria-hidden="true">{item.era}</div>
+          </article>
+        );
+      })}
+    </section>
+
+    <footer class="r d8">
+      <div>wangyun.fan · /work</div>
+      <div><kbd>M</kbd> menu · <kbd>T</kbd> theme</div>
+    </footer>
+  </main>
+</SiteLayout>

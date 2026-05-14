@@ -1,9 +1,9 @@
 export const navItems = [
-  { href: '#now', label: '现在', en: 'Now' },
-  { href: '#work', label: '经历', en: 'Work' },
-  { href: '#invest', label: '投资', en: 'Invest' },
-  { href: '#writing', label: '写作', en: 'Writing' },
-  { href: '#elsewhere', label: '别处', en: 'Elsewhere' },
+  { href: '/#now', label: '现在', en: 'Now' },
+  { href: '/work', label: '经历', en: 'Work' },
+  { href: '/#invest', label: '投资', en: 'Invest' },
+  { href: '/#writing', label: '写作', en: 'Writing' },
+  { href: '/#elsewhere', label: '别处', en: 'Elsewhere' },
 ];
 
 export const nowItems = [
@@ -38,6 +38,71 @@ export const workRows = [
     title: 'MES / 工业 SaaS 平台',
     desc: 'Vue。第一份工作里的"业务系统"，从此知道什么叫复杂度',
     tag: '企业',
+  },
+];
+
+export const workTimeline = [
+  {
+    when: '2026 — 现在',
+    title: '探索 AI 方向',
+    stack: 'AI SDK · Tool Calling · Agent · 在做小项目 · 读书 · 谈话',
+    notes: [
+      '把过去几年的"前端能力"重新折叠进 AI 工程师这条路。',
+      '兼顾产品与实现 —— 想做能 ship 的东西，不只是 demo。',
+    ],
+    era: 'AI',
+    current: true,
+  },
+  {
+    when: '2024 — 26',
+    title: 'AI 智能报表 + 知识助手',
+    stack: 'React · TS · AI SDK · Tool Calling · Zod · SSE · Monorepo',
+    notes: [
+      '把数据库查询和图表渲染都交给 LLM 的尝试。',
+      '从 0 写 streaming UI、Tool Use、人机协作流。',
+      '把 AI 当同事用了一年，最大体感是它缺"边界感"。',
+    ],
+    era: 'AI',
+  },
+  {
+    when: '2022 — 24',
+    title: '政务三维数字孪生',
+    stack: 'React · TS · SuperMap3D · Cesium · WebGL · Three.js · RxJS',
+    notes: [
+      '把一座城市的数据塞进浏览器里跑。',
+      '在性能、视觉、客户期待之间反复横跳。',
+    ],
+    era: 'G',
+  },
+  {
+    when: '2021 — 22',
+    title: '电商平台 + 小程序',
+    stack: 'Vue · 微信小程序 · 跨端',
+    notes: [
+      '跟着微信小程序生态从混乱走向规范。',
+      '第一次理解"运营节奏"压在工程之上是什么感觉。',
+    ],
+    era: 'C',
+  },
+  {
+    when: '2018 — 21',
+    title: 'MES / 工业 SaaS 平台',
+    stack: 'Vue · 复杂表单 · 权限模型 · 工厂车间',
+    notes: [
+      '业务系统是认识"复杂度"的入口。',
+      '在这里学会的事：写代码之前先去车间。',
+    ],
+    era: 'B',
+  },
+  {
+    when: '2014 — 18',
+    title: '学生时代 · 自学前端',
+    stack: 'HTML · CSS · jQuery → Vue 早期',
+    notes: [
+      '从折腾博客起步，到能接外包养活自己。',
+      '那几年没有 AI，全靠 Stack Overflow 和"试一试"。',
+    ],
+    era: '·',
   },
 ];
 

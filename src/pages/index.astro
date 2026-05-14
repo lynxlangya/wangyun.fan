@@ -11,7 +11,6 @@ import {
   elsewhereLinks,
   investRows,
   nowItems,
-  workRows,
   writingRows,
 } from '../data/home';
 ---
@@ -27,25 +26,19 @@ import {
       <NowList items={nowItems} />
     </HomeSection>
 
-    <HomeSection id="work" title="Work" zh="经历" meta="B → C → G → AI" delay="d4">
-      <div class="rows">
-        {workRows.map((row) => <TimelineRow {...row} />)}
-      </div>
-    </HomeSection>
-
-    <HomeSection id="invest" title="Invest" zh="投资" meta="二级市场 · 长期" delay="d5">
+    <HomeSection id="invest" title="Invest" zh="投资" meta="二级市场 · 长期" delay="d4">
       <div class="rows">
         {investRows.map((row) => <TimelineRow {...row} />)}
       </div>
     </HomeSection>
 
-    <HomeSection id="writing" title="Writing" zh="写作" meta="想写 · 清单" delay="d6" class="write">
+    <HomeSection id="writing" title="Writing" zh="写作" meta="想写 · 清单" delay="d5" class="write">
       <div class="rows">
         {writingRows.map((row) => <TimelineRow {...row} />)}
       </div>
     </HomeSection>
 
-    <HomeSection id="elsewhere" title="Elsewhere" zh="别处" meta="邮件最佳" delay="d7">
+    <HomeSection id="elsewhere" title="Elsewhere" zh="别处" meta="邮件最佳" delay="d6">
       <LinkGrid links={elsewhereLinks} />
     </HomeSection>
 
